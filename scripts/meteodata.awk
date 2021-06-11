@@ -2,7 +2,7 @@ BEGIN {
   # a way to parse XML with awk...
   FS="[<|>]"
 
-  # CSV from `#{meteodata}`
+  # CSV from `@meteodata-params`
   split(params, selected_params, ",")
 
   # unit definitions from https://meteo.physic.ut.ee/xml/params.php
