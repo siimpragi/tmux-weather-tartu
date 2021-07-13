@@ -36,6 +36,8 @@ By default only the temperature and wind speed are printed. You can override thi
 | `gamma`       | radiation        | μSv/h    |
 | `precip`      | precipitation    | mm/s     |
 
+Additionally, there is `wind` which combines both direction and speed like so: `↓1.5m/s`
+
 ## Installation
 
 ### With [TPM](https://github.com/tmux-plugins/tpm)
@@ -70,6 +72,6 @@ $ tmux source-file ~/.tmux.conf
 
 ## TODO
 
-- [ ] Combine `wind_len` and `wind_dir`. Wind direction to be represented by Unicode arrow characters (U+2190–U+2193,U+2196–U+2199).
+- [x] <strike>Combine `wind_len` and `wind_dir`. Wind direction to be represented by Unicode arrow characters (U+2190–U+2193,U+2196–U+2199).</strike>
 - [ ] Account for low `status-interval` option. Wouldn't want to bombard the server. The weather station data is only updated every 10 seconds anyways.
 

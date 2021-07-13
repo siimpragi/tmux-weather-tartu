@@ -15,6 +15,17 @@ BEGIN {
   units["sole"]     = "W/m²"
   units["gamma"]    = "μSv/h"
   units["precip"]   = "mm/s"
+
+  # to map `wind_dir` to one of 8 Unicode chars
+  sectors[0] = "↓"
+  sectors[1] = "↙"
+  sectors[2] = "←"
+  sectors[3] = "↖"
+  sectors[4] = "↑"
+  sectors[5] = "↗"
+  sectors[6] = "→"
+  sectors[7] = "↘"
+  sectors[8] = "↓"
 }
 
 {
@@ -41,19 +52,32 @@ END {
 
     current_param = selected_params[i]
     if (current_param in data) {
-      current_data = data[current_param]
-      current_unit = units[current_param]
 
-      if (current_data == "-") {
+      if (data[current_param] == "-") {
         printf("N/A")
         continue
+      } else {
+        (current_param == "temp") ? format = "%+.f%s" : format = "%.1f%s"
+        printf(format, data[current_param], units[current_param])
       }
 
-      (current_param == "temp") ? fmt_str = "%+.f%s" : fmt_str = "%.1f%s"
-      printf(fmt_str, current_data, current_unit)
+    } else if (current_param == "wind") {
+
+      printf(wind_dir_to_symbol(data["wind_dir"]))
+      printf("%.1f", data["wind_len"])
+      printf(units["wind_len"])
+
     } else {
+
       printf("?")
+
     }
   }
+
   printf("\n")
+}
+
+function wind_dir_to_symbol(wind_dir) {
+  sector_index = int((wind_dir % 360) / 45)
+  return sectors[sector_index]
 }
